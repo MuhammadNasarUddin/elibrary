@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <title>elibrary || Profile</title>
+</head>
+<body>
+{% include 'header.html' %}
+
+ <section class="hero-section bg-gray d-flex align-items-center justify-content-center padding-medium pb-5">
+      <div class="hero-content">
+        <div class="container">
+          <div class="row">
+            <div class="text-center padding-medium no-padding-bottom">
+              <h1>MyProfile</h1>
+              <div class="breadcrumbs">
+                  <span class="item">{{request.user.username}} /</span>
+                <span class="item">
+                  <a href="{% url 'signout' %}">logout </a>
+                </span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+ <br>
+  {% include 'messages.html' %}
+<br>
+<br>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  My OnHold Items
+</button> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+  My Approved Items
+</button>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">My OnHold Items</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Book Name</th>
+                <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+           {% for x in ed %}
+            <tr>
+              <td>{{x.book}}</td>
+               <td>
+                   You've placed this item on hold. This item is in your pending list
+                   <a href="/delete/{{ x.id }}" class="btn btn-danger">Remove</a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabe2"> My Approved Items</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Book Name</th>
+                <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+           {% for x in md %}
+            <tr>
+              <td>{{x.book}}</td>
+             <td class="custom-product-action">
+  <span class="custom-download-link">
+    <a href="/{{ x.Url }}" class="btn btn-success">Download Now</a>
+  </span>
+</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<br>
+<br>
+
+
+
+
+{% include 'footer.html' %}
+</body>
+</html>
